@@ -1,0 +1,17 @@
+<template>
+    <div class="split-pane-wrapper" :ref="splitOuter">
+        <div class="pane pane-left" :style="{ width: triggerLeft}">
+            <slot name="left"></slot>
+        </div>
+        <div class="pane-trigger-con"
+             @mousedown="handleMousedown"
+             :style="{ left: triggerLeft, width: `${triggerWidth}px` }">
+            <div class="pane-trigger-con__button">
+                <div v-for="i in 10" :key="i"></div>
+            </div>
+        </div>
+        <div class="pane pane-right" :style="{ left: leftOffsetPercent }">
+            <slot name="right"></slot>
+        </div>
+    </div>
+</template>

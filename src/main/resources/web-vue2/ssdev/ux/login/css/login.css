@@ -1,0 +1,117 @@
+@CHARSET "UTF-8";
+
+.login-container {
+	width: 100%!important;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	background:url(login_bg.png) no-repeat;
+	-moz-background-size:100% 100%;
+	background-size:100% 100%;           /*  背景图片 自适应  */
+	color: #383e4b;
+	border: 0;
+}
+.login-container .login-title{
+	display:none;
+}
+
+/*
+.web-vue2.ssdev.ux-container:before {
+    height: 30%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00bcd4;
+    content: "";
+}
+
+@media (max-height: 768px) {
+	.web-vue2.ssdev.ux-container:before {
+		height: 40%;
+	}
+}
+*/
+
+.login-box {
+	width: 360px;
+	padding: 20px;
+	margin: 150px auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	position: relative;
+
+	background-color: rgba(255, 255, 255, 0.3);   /* 背景色 半透明, 透明度 0.3 */
+	box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);   /* 边框阴影 实现 半透明化   */
+}
+
+.login-box .form-horizontal {
+	background-color: transparent;     /* 背景色: 透明  */
+}
+
+
+@media (max-height: 768px) {
+	.login-box {
+		margin: 120px auto;
+	}
+}
+
+.login-box h2 {
+	font-size: 22px;
+	line-height: 16px;
+	font-weight: 300;
+	text-align: center;
+	color: #fff;
+	margin-top: 15px;
+	margin-bottom: 30px;
+}
+
+.login-box fieldset {
+	min-width: 0;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	box-shadow: 0 0px 0px rgba(0,0,0,.2);
+	cursor: pointer;
+}
+
+.login-box input[type="text"], .login-box input[type="password"] {
+	border: 0;
+	background: #fff;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	padding: 0 10px;
+	height: 40px;
+	margin: 5px auto;
+}
+
+.login-box .ace-icon {
+	line-height: 50px;
+}
+
+.login-box .remember {
+	margin-top: 15px;
+	float: left;
+	color: #edecec;
+}
+
+.login-box button {
+	margin: 15px 0!important;
+	background-color: #4285f4;
+	padding: 8px 12px;
+	font-size: 18px;
+}
+
+.login-box .error-info{
+	padding:0px;
+	margin-bottom: 5px;
+	text-align: left;
+	border-color: transparent;
+	background-color: transparent;
+}
+

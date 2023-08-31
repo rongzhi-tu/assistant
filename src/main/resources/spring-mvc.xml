@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:ssdev="http://www.bsoft.com.cn/schema/ssdev"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.bsoft.com.cn/schema/ssdev http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+    <import resource="classpath:ctd/mvc/spring-mvc.xml"/>
+
+    <bean id="mvcJSONRequester" class="ctd.mvc.controller.support.JSONRequester"/>
+    <bean id="mvcAutoUpdateResponder" class="ctd.mvc.controller.support.AutoUpdateResponder"/>
+    <bean id="mvcSchemaLoader" class="ctd.mvc.controller.support.SchemaLoader">
+        <property name="expiresSeconds" value="15"/>
+    </bean>
+    <bean id="mvcAppModuleDefineLoader" class="ctd.mvc.controller.support.AppModuleDefineLoader"/>
+    <bean id="dictionaryService" class="ctd.dictionary.service.DictionaryLocalService"/>
+    <bean id="mvcDictionaryLoader" class="ctd.mvc.controller.support.DictionaryLoader">
+        <property name="expiresSeconds" value="15"/>
+        <property name="localService" ref="dictionaryService"/>
+    </bean>
+    <bean id="logonEventListener" class="ctd.mvc.logon.event.support.DefaultLogonEventListener"/>
+    <bean id="mvcLogonManager" class="ctd.mvc.controller.support.LogonManager">
+        <property name="expiresSeconds" value="15"/>
+        <property name="encryptEnable" value="false"/>
+        <property name="logonEventListener" ref="logonEventListener"/>
+    </bean>
+
+    <bean id="mvcHTMLTemplateLoader" class="ctd.mvc.controller.support.HTMLTemplateLoader">
+        <property name="expiresSeconds" value="15"/>
+    </bean>
+    <bean id="mvcScriptLoader" class="ctd.mvc.controller.support.ScriptLoader">
+        <property name="expiresSeconds" value="15"/>
+        <property name="tryLoadCompressJs" value="false"/>
+    </bean>
+    <bean id="mvcStaticResourceLoader" class="ctd.mvc.controller.support.StaticResourceLoader">
+        <property name="expiresSeconds" value="15"/>
+        <property name="tryLoadCompressCss" value="false"/>
+    </bean>
+
+    <ssdev:reference id="bbp.fileRegistry" interface="ctd.mvc.upload.FileRegistry"/>
+    <bean id="localRepository" class="ctd.mvc.upload.support.LocalFileRepository"/>
+    <bean id="httpRepository" class="ctd.mvc.upload.support.HttpFileRepository" init-method="init"
+          destroy-method="shutdown">
+        <property name="contextPath" value="${file.server.path}"/>
+        <property name="host" value="${file.server.host}"/>
+        <property name="port" value="${file.server.port}"/>
+    </bean>
+
+    <bean id="fileService" class="ctd.mvc.upload.FileService">
+        <property name="registry" ref="bbp.fileRegistry"/>
+        <property name="repository" ref="${file.repository.type}Repository"/>
+    </bean>
+    <bean id="mvcUploadFileManager" class="ctd.mvc.controller.support.UploadFileManager">
+        <property name="fileService" ref="fileService"/>
+        <property name="maxUploadFileSize" value="83886080"/>
+        <property name="expiresSeconds">
+            <util:constant static-field="ctd.util.ServletUtils.ONE_WEEK_SECONDS"/>
+        </property>
+    </bean>
+
+    <bean id="resourceLocator" class="ctd.mvc.resource.service.ResourceLocateService"/>
+
+    <bean id="printLocator" class="ctd.mvc.print.service.PrintLocateService"/>
+
+    <bean id="mvcPrintLoader" class="ctd.mvc.controller.support.PrintLoader"/>
+
+    <ssdev:service ref="resourceLocator"/>
+    <ssdev:service ref="dictionaryService"/>
+    <ssdev:service ref="printLocator"/>
+</beans>

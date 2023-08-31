@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns:s="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bsoft.com.cn/schema/ssdev"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.bsoft.com.cn/schema/ssdev
+            http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+
+    <!--category node-->
+    <reference id="bbp.categoryLoader" interface="ctd.controller.ConfigurableLoader"/>
+    <s:bean id="categoryController" class="ctd.security.CategoryNodeController">
+        <s:property name="loader" ref="bbp.categoryLoader"></s:property>
+    </s:bean>
+    <s:bean id="categoryWatcher" class="ctd.security.CategoryNodeWatcher">
+        <s:property name="controller" ref="categoryController"/>
+    </s:bean>
+
+    <!--module-->
+    <reference id="bbp.moduleLoader" interface="ctd.module.loader.ModuleLoader"/>
+    <s:bean id="moduleController" class="ctd.module.controller.ModuleController">
+        <s:property name="loader" ref="bbp.moduleLoader"/>
+    </s:bean>
+
+    <!--category-->
+    <reference id="bbp.moduleCategoryLoader" interface="ctd.module.loader.ModuleCategoryLoader"/>
+    <s:bean id="moduleCategoryController" class="ctd.module.controller.ModuleCategoryController">
+        <s:property name="loader" ref="bbp.moduleCategoryLoader"></s:property>
+    </s:bean>
+
+    <!--app-->
+    <reference id="bbp.appLoader" interface="ctd.app.loader.ApplicationLoader"/>
+    <s:bean id="appController" class="ctd.app.ApplicationController">
+        <s:property name="loader" ref="bbp.appLoader"/>
+    </s:bean>
+    <s:bean id="appWatcher" class="ctd.app.ApplicationWatcher">
+        <s:property name="controller" ref="appController"/>
+    </s:bean>
+</s:beans>

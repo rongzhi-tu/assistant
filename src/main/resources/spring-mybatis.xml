@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+        <property name="resultSetLogEnabled" value="false"/>
+        <property name="connectionLogEnabled" value="false"/>
+        <property name="dataSourceLogEnabled" value="false"/>
+        <property name="statementLogEnabled" value="true"/>
+        <property name="statementExecutableSqlLogEnable" value="false"/>
+        <property name="statementParameterSetLogEnabled" value="true"/>
+        <property name="statementPrepareAfterLogEnabled" value="false"/>
+        <property name="statementParameterClearLogEnable" value="false"/>
+        <property name="statementCreateAfterLogEnabled" value="false"/>
+        <property name="statementSqlPrettyFormat" value="false"/>
+    </bean>
+    <bean id="statFilter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <property name="slowSqlMillis" value="10000"/>
+        <property name="logSlowSql" value="true"/>
+        <property name="mergeSql" value="true"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="proxyFilters">
+            <list>
+                <ref bean="logFilter"/>
+                <ref bean="statFilter"/>
+            </list>
+        </property>
+        <property name="maxActive" value="100"/>
+        <property name="initialSize" value="20"/>
+        <property name="maxWait" value="60000"/>
+        <property name="minIdle" value="10"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="${db.validationQuery}"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+    </bean>
+    <!--创建会话工厂-->
+    <bean id="mySessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--加载数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--绑定mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mappers/*.xml"></property>
+    </bean>
+
+    <!--将SqlSession对象的加载交给Spring托管 (**mySqlSession为系统默认会话bean**)-->
+    <bean id="mySqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!-- 按照mybatis的习俗，通过工厂获得SqlSession会话对象 可配置参数-->
+        <constructor-arg name="sqlSessionFactory" ref="mySessionFactory"/>
+    </bean>
+    <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bsoft.assistant.mapper"></property>
+    </bean>
+    <bean id="mybatisTransactionInterceptor" class="ctd.persistence.support.mybatis.MybatisTransactionInterceptor"/>
+    <bean id="myTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg ref="dataSource" />
+    </bean>
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns:s="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bsoft.com.cn/schema/ssdev"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.bsoft.com.cn/schema/ssdev
+            http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+
+    <s:bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <s:constructor-arg ref="jedisPoolConfig"/>
+        <s:property name="hostName" value="${redis.host}"/>
+        <s:property name="port" value="${redis.port}"/>
+        <s:property name="password" value="${redis.pass}"/>
+    </s:bean>
+
+    <s:bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <s:property name="maxTotal" value="${redis.maxTotal}"/>
+        <s:property name="maxIdle" value="${redis.maxIdle}"/>
+        <s:property name="maxWaitMillis" value="${redis.maxWait}"/>
+        <s:property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <s:property name="testOnReturn" value="${redis.testOnReturn}"/>
+    </s:bean>
+</s:beans>

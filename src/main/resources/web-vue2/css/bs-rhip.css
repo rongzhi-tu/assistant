@@ -1,0 +1,32 @@
+.uxl-table .el-table {
+    width: 100%;
+    margin-top: 6px;
+    border-radius: 4px
+}
+
+.uxl-table .el-pagination {
+    float: right;
+    margin: 5px 15px 0 0
+}
+
+.content-padding {
+    padding: 10px;
+}
+
+.el-row--flex {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.my-button-item .el-button{
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.page-right{
+    float: right;
+}
+
+.dialog-footer {
+    text-align: center;
+}

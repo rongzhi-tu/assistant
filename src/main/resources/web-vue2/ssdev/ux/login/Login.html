@@ -1,0 +1,57 @@
+<div class="login-container">
+	<div class="login-title">
+		创业门户系统
+	</div>
+  <div class="login-box">
+    <h2>欢迎登陆</h2>
+    <form class="form-horizontal">
+      <fieldset>
+		  <div>
+		  <label class="block clearfix">
+			  <span class="block input-icon input-icon-right">
+				<input class="input-large col-xs-12" id="tid" @keydown.13="tidEnterClick" v-model="formData.tenantId" type="text" placeholder="客户名">
+				<i class="ace-icon fa fas fa-address-book self-fa"></i>
+			  </span>
+		  </label>
+		  </div>
+		  <div>
+        <label class="block clearfix">
+          <span class="block input-icon input-icon-right">
+		    <input class="input-large col-xs-12" id="uid" @keydown.13="uidEnterClick" v-model="formData.uid" type="text" placeholder="用户名">
+			<i class="ace-icon zmdi zmdi-account"></i>
+		  </span>
+	    </label>
+		  </div>
+		  <div>
+	    <label class="block clearfix">
+          <span class="block input-icon input-icon-right">
+		    <input class="input-large col-xs-12" id="pwd" @keydown.13="pwdEnterClick" type="password" v-model="formData.pwd" placeholder="密码">
+			<i class="ace-icon zmdi zmdi-key"></i>
+		  </span>
+	    </label>
+		  </div>
+		  <div>
+	    <label class="block clearfix">
+	      <el-select v-model="formData.urt" placeholder="选择角色" style="width:100%;" @visible-change="doExpand" @change="urtChange" :loading="roleLoad" loading-text="正在加载">
+             <el-option v-for="it in urs" :key="it.ud_id || it.id" :label="it.displayName" :value="it.ud_id || it.id">
+			 </el-option>
+           </el-select>
+	    </label>
+		  </div>
+	    <transition enter-active-class="animated pulse">
+	      <div class="alert alert-danger error-info" v-show="errorInfo">
+	        <strong>
+	          <i class="fa fa-exclamation-circle bigger-110"></i>
+              <span>{{errorInfo}}</span>
+            </strong>
+          </div>
+        </transition>
+	    <div class="clearfix"></div>
+	    <label class="remember" for="remember"><input type="checkbox" v-model="formData.rememberMe">记住我</label>
+	    <div class="clearfix"></div>
+	    <button type="button" id="confirm" class="btn btn-primary col-xs-12" @click="confirmBtnClick" :class="{'loading disabled' : loading}">登录</button>
+	  </fieldset>
+    </form>
+   <!--  <hr>  -->
+  </div>
+</div>

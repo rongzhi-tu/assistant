@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsoft.assistant.mapper.BaseEntityMapper">
+    <sql id="BaseColumns"> ${alias}.ID,${alias}.FG_ACTIVE,${alias}.INSERT_TIME,${alias}.UPDATE_TIME
+      ,${alias}.DELETE_TIME,${alias}.INSERT_USER,${alias}.UPDATE_USER,${alias}.DELETE_USER </sql>
+
+    <resultMap id="BaseEntity" type="com.bsoft.assistant.model.entity.BaseEntity">
+        <id property="id" jdbcType="VARCHAR" column="ID" />
+        <result property="fgActive" jdbcType="INTEGER" column="FG_ACTIVE"/>
+        <result property="insertTime" jdbcType="DATE" column="INSERT_TIME"/>
+        <result property="updateTime" jdbcType="DATE" column="UPDATE_TIME"/>
+        <result property="deleteTime" jdbcType="DATE" column="DELETE_TIME"/>
+        <result property="insertUser" jdbcType="VARCHAR" column="INSERT_USER"/>
+        <result property="updateUser" jdbcType="VARCHAR" column="UPDATE_USER"/>
+        <result property="deleteUser" jdbcType="VARCHAR" column="DELETE_USER"/>
+    </resultMap>
+
+    <sql id="BaseColumns1">
+    ${alias}.ID as id,
+    ${alias}.FG_ACTIVE as fgActive,
+    ${alias}.INSERT_TIME as insertTime,
+    ${alias}.UPDATE_TIME as updateTime,
+    ${alias}.DELETE_TIME as deleteTime,
+    ${alias}.INSERT_USER as insertUser,
+    ${alias}.UPDATE_USER as updateUser,
+    ${alias}.DELETE_USER as deleteUser,
+    </sql>
+</mapper>

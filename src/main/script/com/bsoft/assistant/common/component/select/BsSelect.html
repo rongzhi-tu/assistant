@@ -1,0 +1,42 @@
+<section>
+    <el-select
+            ref="refSelect"
+            :size="size"
+            v-model="value"
+            @clear="nodeClear"
+            placeholder="请选择"
+            :multiple="multiple"
+            :collapse-tags="multiple"
+            clearable>
+        <el-option
+                style="height: auto;background-color: white;min-width: 270px;font-weight: normal"
+                :value="optionValue">
+            <el-tree
+                    class="_tree"
+                    v-bind="$attrs"
+                    v-on="$listeners"
+                    ref="refTree"
+                    :props="defaultProps"
+                    :node-key="nodeKey"
+                    :highlight-current="true"
+                    :show-checkbox="showCheckbox"
+                    :default-checked-keys="defaultChecked"
+                    :default-expanded-keys="defaultExpanded"
+                    :expand-on-click-node="expandOnClick"
+                    :lazy="lazy"
+                    :load="loadData"
+                    :data="treeList"
+                    @node-click="nodeClick"
+                    @check-change="checkChange">
+              <span slot-scope="{ node, data }">
+                  <i v-if="!data.isLeaf" :class="data.icon ? data.icon : 'el-icon-folder-opened'"></i>
+                  <i v-else-if="data.isLeaf" :class="data.icon ? data.icon : 'el-icon-document'"></i>
+                  <span class="tree_label">{{ node.label }}</span>
+                  <span class="tree_label"
+                        v-if="data.total || data.total === 0"
+                        title="数量">({{ data.total }})</span>
+              </span>
+            </el-tree>
+        </el-option>
+    </el-select>
+</section>

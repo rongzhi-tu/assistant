@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns:s="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bsoft.com.cn/schema/ssdev"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.bsoft.com.cn/schema/ssdev
+            http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+
+    <reference id="bbp.parameterLoader" interface="ctd.parameter.loader.ParameterLoader"/>
+    <reference id="bbp.parameterUpdater" interface="ctd.controller.updater.ConfigurableItemUpdater"/>
+    <s:bean id="parameterController" class="ctd.parameter.controller.ParameterController">
+        <s:property name="loader" ref="bbp.parameterLoader"/>
+        <s:property name="updater" ref="bbp.parameterUpdater"/>
+    </s:bean>
+    
+    <s:bean id="parameterWatcher" class="ctd.parameter.watcher.ParameterWatcher">
+        <s:property name="controller" ref="parameterController"/>
+    </s:bean>
+</s:beans>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsoft.assistant.mapper.DatasourceMapper">
+    <update id="updateDatasource" parameterType="com.bsoft.assistant.model.entity.DatasourceEntity">
+        update HI_LOGMIRROR_DATASOURCE set
+        DB_NAME = #{dbName},
+        DB_HOST = #{dbHost},
+        DB_PORT = #{dbPort},
+        DB_USER = #{dbUser},
+        DB_PASSWORD = #{dbPassword},
+        DB_TABLESPACE = #{dbTablespace,jdbcType=VARCHAR},
+        DB_SERVICE_NAME = #{dbServiceName,jdbcType=VARCHAR},
+        DICTIONARY_PATH = #{dictionaryPath,jdbcType=VARCHAR},
+        DB_TYPE = #{dbType},
+        UPDATE_USER = #{updateUser},
+        UPDATE_TIME = sysdate
+        where id = #{id}
+    </update>
+
+    <insert id="insertDatasource" parameterType="com.bsoft.assistant.model.entity.DatasourceEntity">
+        insert into HI_LOGMIRROR_DATASOURCE
+        (ID,DB_NAME,DB_HOST,DB_PORT,DB_USER,DB_PASSWORD,DB_TABLESPACE,DB_SERVICE_NAME,DB_TYPE,
+        FG_ACTIVE,INSERT_TIME,INSERT_USER,ID_DATASOURCE_FU,DICTIONARY_PATH)
+        values (#{id},#{dbName},#{dbHost},#{dbPort},#{dbUser},#{dbPassword},#{dbTablespace,jdbcType=VARCHAR},#{dbServiceName,jdbcType=VARCHAR},#{dbType},
+        1,sysdate,#{insertUser},#{idDatasourceFu},#{dictionaryPath,jdbcType=VARCHAR})
+    </insert>
+    <update id="removeById">
+        update HI_LOGMIRROR_DATASOURCE
+        set FG_ACTIVE = '0',DELETE_TIME = sysdate,DELETE_USER=#{userId}
+        where id=#{id}
+    </update>
+    <select id="findById" parameterType="String" resultMap="Datasource">
+        select * from HI_LOGMIRROR_DATASOURCE where  FG_ACTIVE = '1' and id=#{id}
+    </select>
+
+    <select id="findByNameFu" parameterType="String" resultMap="Datasource">
+        select * from HI_LOGMIRROR_DATASOURCE where FG_ACTIVE = '1'
+        <if test='idFu != null and idFu !="" and idFu != "0"'>
+            AND ID_DATASOURCE_FU = #{idFu}
+        </if>
+
+        <if test='name != null and name !=""'>
+            AND DB_NAME like #{name}
+        </if>
+    </select>
+
+    <resultMap type="com.bsoft.assistant.model.entity.DatasourceEntity" id="Datasource" extends="com.bsoft.assistant.mapper.BaseEntityMapper.BaseEntity">
+        <result property="dbName" jdbcType="VARCHAR" column="DB_NAME"/>
+        <result property="dictionaryPath" jdbcType="VARCHAR" column="DICTIONARY_PATH"/>
+        <result property="dbHost" jdbcType="VARCHAR" column="DB_HOST"/>
+        <result property="dbPort" jdbcType="VARCHAR" column="DB_PORT"/>
+        <result property="dbUser" jdbcType="VARCHAR" column="DB_USER"/>
+        <result property="dbPassword" jdbcType="VARCHAR" column="DB_PASSWORD"/>
+        <result property="dbTablespace" jdbcType="VARCHAR" column="DB_TABLESPACE"/>
+        <result property="dbServiceName" jdbcType="VARCHAR" column="DB_SERVICE_NAME"/>
+        <result property="dbType" jdbcType="VARCHAR" column="DB_TYPE"/>
+        <result property="idDatasourceFu" jdbcType="VARCHAR" column="ID_DATASOURCE_FU"/>
+    </resultMap>
+</mapper>

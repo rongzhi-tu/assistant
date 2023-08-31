@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration packages="ctd.net.rpc.logger.track.support">
+    <Appenders>
+        <RollingFile name="A2" fileName="${sys:catalina.home}/logs/server-logMirror.log"
+                     filePattern="${sys:catalina.home}/logs/logMirror-server_%d{yyyy-MM-dd HH-mm-ss}-%i.log">
+            <ThresholdFilter level="INFO"/>
+            <PatternLayout pattern="[%d{MM-dd HH:mm:ss,SSS} %-5p] %F:%L - %m%n"></PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <!-- 日志保留策略，配置只保留七天 -->
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:catalina.home}/logs/" maxDepth="1">
+                    <IfFileName glob="logMirror-server_*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <CONSOLE name="CONSOLE2" target="SYSTEM_OUT">
+            <ThresholdFilter level="INFO"/>
+            <PatternLayout pattern="[%d{MM-dd HH:mm:ss,SSS} %-5p] %F:%L - %m%n"></PatternLayout>
+        </CONSOLE>
+        <RpcAppender name="RPC">
+            <ThresholdFilter level="DEBUG"/>
+            <PatternLayout pattern="[%d{MM-dd HH:mm:ss,SSS} %-5p] %F:%L - %m%n"></PatternLayout>
+        </RpcAppender>
+    </Appenders>
+    <Loggers>
+        <Logger name="druid.sql" level="DEBUG" additivity="false">
+            <AppenderRef ref="CONSOLE2"/>
+        </Logger>
+        <Logger name="RocketmqClient" level="ERROR" additivity="false">
+            <AppenderRef ref="CONSOLE2"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="CONSOLE2"/>
+            <AppenderRef ref="A2"/>
+            <AppenderRef ref="RPC"/>
+        </Root>
+    </Loggers>
+</configuration>

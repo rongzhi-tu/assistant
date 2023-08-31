@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns:s="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bsoft.com.cn/schema/ssdev"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.bsoft.com.cn/schema/ssdev
+            http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+    <!--user-->
+    <reference id="bbp.userLoader" interface="ctd.account.user.loader.UserLoader"/>
+    <reference id="bbp.userUpdater" interface="ctd.controller.updater.ConfigurableItemUpdater"/>
+    <s:bean id="userController" class="ctd.account.user.controller.UserController">
+        <s:property name="loader" ref="bbp.userLoader"/>
+        <s:property name="updater" ref="bbp.userUpdater"/>
+    </s:bean>
+    <s:bean id="userWatcher" class="ctd.account.user.watcher.UserWatcher">
+        <s:property name="controller" ref="userController"/>
+    </s:bean>
+
+    <!--role-->
+    <reference id="bbp.roleLoader" interface="ctd.account.role.loader.RoleLoader"/>
+    <reference id="bbp.roleUpdater" interface="ctd.controller.updater.ConfigurableItemUpdater"/>
+    <s:bean id="roleController" class="ctd.account.role.controller.RoleController">
+        <s:property name="loader" ref="bbp.roleLoader"/>
+        <s:property name="updater" ref="bbp.roleUpdater"/>
+    </s:bean>
+    <s:bean id="roleWatcher" class="ctd.account.role.watcher.RoleWatcher">
+        <s:property name="controller" ref="roleController"/>
+    </s:bean>
+    
+
+    <!--access-->
+    <reference id="bbp.accessTokenLoader" interface="ctd.access.loader.AccessTokenLoader"/>
+    <reference id="bbp.accessTokenUpdater" interface="ctd.controller.updater.ConfigurableUpdater"/>
+    <s:bean id="accessTokenController" class="ctd.access.controller.AccessTokenController">
+        <s:property name="loader" ref="bbp.accessTokenLoader"/>
+        <s:property name="updater" ref="bbp.accessTokenUpdater"/>
+    </s:bean>
+    <s:bean id="accessTokenWatcher" class="ctd.access.watcher.AccessTokenWatcher">
+        <s:property name="controller" ref="accessTokenController"/>
+    </s:bean>
+
+    <!--tenant-->
+    <reference id="bbp.tenantLoader" interface="ctd.account.tenant.loader.TenantLoader"/>
+    <reference id="bbp.tenantUpdater" interface="ctd.controller.updater.ConfigurableItemUpdater"/>
+    <s:bean id="tenantController" class="ctd.account.tenant.controller.TenantController">
+        <s:property name="loader" ref="bbp.tenantLoader"/>
+        <s:property name="updater" ref="bbp.tenantUpdater"/>
+    </s:bean>
+    <s:bean id="tenantWatcher" class=" ctd.account.tenant.watcher.TenantWatcher">
+        <s:property name="controller" ref="tenantController"/>
+    </s:bean>
+
+</s:beans>

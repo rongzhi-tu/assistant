@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns:s="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bsoft.com.cn/schema/ssdev"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.bsoft.com.cn/schema/ssdev
+            http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+
+  <publisher id="bbp-publish" type="rocketMQ" catalogs="message">
+    <property confBean="rocketMQPubConf"/>
+  </publisher>
+
+  <s:bean id="rocketMQPubConf" class="ctd.mq.rocket.conf.PublisherConfigure">
+    <s:property name="codec" value="0"/>
+    <s:property name="groupName" value="AlpineProducerGroup"/>
+    <s:property name="namesrvAddr" value="${rocketmq.namesrv}"/>
+    <s:property name="async" value="false"/>
+    <s:property name="retryAnotherBrokerWhenNotStoreOK" value="false"/>
+    <s:property name="retryTimes" value="0"/>
+    <s:property name="retryTooMuchRequest" value="false"/>
+  </s:bean>
+
+  <subscriber id="bbp-subscribe" type="rocketMQ" catalogs="message">
+    <property confBean="rocketMQSubConf"/>
+  </subscriber>
+
+  <s:bean id="rocketMQSubConf" class="ctd.mq.rocket.conf.SubscriberConfigure">
+    <s:property name="broadcasting" value="true"/>
+    <s:property name="codec" value="0"/>
+    <s:property name="groupName" value="AlpineConsumerGroup"/>
+    <s:property name="namesrvAddr" value="${rocketmq.namesrv}"/>
+  </s:bean>
+</s:beans>

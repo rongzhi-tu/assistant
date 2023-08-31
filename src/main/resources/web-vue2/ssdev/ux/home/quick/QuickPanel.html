@@ -1,0 +1,113 @@
+<div class="quick">
+    <div class="quick-mask" v-show="editPanel.visibility">
+        <div class="edit-panel" @click="hideModuleTree" >
+            <div class="header" @mousedown="dragEditPanel">
+                <b>编辑</b>
+                <span @click="closeEdit" class="zmdi zmdi-close"></span>
+            </div>
+            <div class="edit-panel-content" >
+                <div class="click-module nav-item">
+                    <div class="module-list" >
+                        <div>
+                            <span class="text">选择模块:</span>
+                            <b @click.stop="showModuleTree"></b>
+                            <el-input  :disabled="editPanel.moduleDisabled" @focus.stop="showModuleTree" placeholder="输入关键字进行过滤" class="filter-input right-content" v-model="editPanel.filterText">
+                            </el-input>
+                            <el-tree
+                                    class="filter-tree"
+                                    :data="apps"
+                                    v-show="editPanel.tree"
+                                    @click="showModuleTree"
+                                    @node-click="nodeClick"
+                                    :props="defaultProps"
+                                    default-expand-all
+                                    :filter-node-method="filterNode"
+                                    ref="moduleTree">
+                            </el-tree>
+                        </div>
+                    </div>
+                </div>
+                <div class="chose-shape nav-item">
+                    <div>
+                        <b class="text">选择形状:</b>
+                        <ul class="right-content">
+                            <li class="shape-one" @click="choseShape(0,$event)"></li>
+                            <li class="shape-two" @click="choseShape(1,$event)"></li>
+                            <li class="shape-three" @click="choseShape(2,$event)"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chose-color nav-item">
+                    <div>
+                        <b class="text">选择颜色:</b>
+                        <ul class="right-content">
+                            <li :style="{background:item}" v-for="(item,index) in editPanel.bgColorValues" @click="choseColor(index)">
+                                <i class="glyphicon glyphicon-ok" v-show="index == editPanel.currentColorIndex"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chose-icon nav-item">
+                    <div>
+                        <b class="text">选择图标:</b>
+                        <ul class="right-content">
+                            <li @click="choseIcon(index)" :class="[{active:index == editPanel.chosenIconIndex},item]"
+                                v-for="(item,index) in editPanel.iconValues"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="edit-panel-btn">
+                    <el-button  size="small" type="primary"   @click="editSave">保存</el-button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="drag-container">
+        <div class="del-confirm-mask x-mask" v-show="delPanelVisibility">
+            <div class="del-confirm">
+                <div>确认删除这个模块吗?</div>
+                <div class="edit-panel-btn">
+                    <el-button  size="medium"  type="info"  @click="delCancel">取消</el-button>
+                    <el-button  size="medium" type="primary" @click="delConfirm">确认</el-button>
+                </div>
+            </div>
+        </div>
+        <div class="drag-container-content">
+            <el-button class="exit-fast-btn quick-cancel"  size="small" v-show="indexCancelBtn" @click.native="cancelQuickMethod">取消</el-button>
+            <el-button class="exit-fast-btn quick-edit"  size="small" v-show="mods && indexEditBtn" @click.native="createFastMethod('edit')">编辑</el-button>
+            <el-button class="exit-fast-btn quick-save"  size="small" v-show="indexSaveBtn" @click.native="createFastSave">保存</el-button>
+            <div class="grid" v-show="mods">
+                <ul class="grid-stack">
+                    <li :index="index-1"  v-for="index in gridLiNum" class="plus" @click="addModule(index-1,$event)">+
+                    </li>
+                </ul>
+                <div class="grid-content" :class="{isEdit:isEdit}">
+                    <div class="grid-item plus module-info" @mouseenter="moduleEnter(index-1,$event)" @mouseleave="moduleLeave(index-1,$event)"
+                         @click="jumpModule(index - 1)" :index="index-1" v-for="index in gridLiNum">
+                        <div class="middle">
+                            <div class="icon"></div>
+                            <div class="grid-item-content"></div>
+                        </div>
+                        <i class="edit-btn fa fa-edit" @click.stop="editModule($event)"></i>
+                        <i class="del-btn fa fa-trash-o" @click.stop="delModule"></i>
+                        <div class="resizable-handle resizable-n" @mousedown="northResize(index-1)"></div>
+                        <div class="resizable-handle resizable-e" @mousedown="eastResize(index-1)"></div>
+                        <div class="resizable-handle resizable-s" @mousedown="southResize(index-1)"></div>
+                        <div class="resizable-handle resizable-w" @mousedown="westResize(index-1)"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="no-data" v-show="!mods">
+                <div class="img">
+                    <p></p>
+                </div>
+                <div>还未创建个性化首页，立即创建</div>
+                <el-button  size="small" type="primary"   @click="createFastMethod('new')">创建首页</el-button>
+            </div>
+        </div>
+    </div>
+
+</div>

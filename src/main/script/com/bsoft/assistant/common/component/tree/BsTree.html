@@ -1,0 +1,88 @@
+<section ref="tree-wrapper-label" style=" position:relative;width: 100%;height: 100%;z-index: 1">
+    <el-input placeholder="输入关键字进行过滤"
+              v-if="filter.show"
+              v-model="filterText" size="small"></el-input>
+    <!--<div v-if="addIcon" style="font-size: 16px; color: #606266; text-indent: 5px;">-->
+        <!--<i class="el-icon-circle-plus-outline" @mouseover="handleMouseover($event)"></i>-->
+    <!--</div>-->
+    <el-tree
+            class="_tree"
+            v-bind="$attrs"
+            v-on="$listeners"
+            :ref="refTree"
+            :props="defaultProps"
+            :node-key="nodeKey"
+            :highlight-current="true"
+            :show-checkbox="showCheckbox"
+            :default-checked-keys="checkKeys"
+            :default-expanded-keys="expandKeys"
+            :lazy="lazy"
+            :load="loadTreeData"
+            :data="treeData"
+            :expand-on-click-node="expandOnClickNode"
+            :filter-node-method="filterNode"
+            @node-expand="handleNodeExpand"
+            @node-click="handleNodeClick"
+            @node-contextmenu="handleRightClick"
+            :style="`max-height:${treeHeight}px;max-width:${treeWidth}px;overflow-x:hidden; overflow-y: auto;}`">
+          <span slot-scope="{ node, data }">
+              <i v-if="!node.isLeaf" :class="data.icon ? data.icon : 'el-icon-folder-opened'"></i>
+              <i v-else :class="data.icon ? data.icon : 'el-icon-document'"></i>
+              <span class="tree_label">{{ node.label }}</span>
+              <span class="tree_label"
+                    v-if="data.total || data.total === 0"
+                    title="数量">({{ data.total }})</span>
+          </span>
+    </el-tree>
+
+    <el-popover
+            placement="right"
+            :popper-options="{boundariesElement: 'viewport', removeOnDestroy: true}"
+            trigger="manual"
+            v-model="Flag"
+            class="popover-intree"
+            id="contextMenu"
+            :style="`position: fixed; left:${clientX + 20 }px;top:${clientY }px;`">
+        <el-row type="flex" :gutter="8" style="flex-wrap:wrap">
+            <el-col style="margin-bottom:4px; position: relative;"
+                    v-for="(item, index) in contextMenu"
+                    :key="item.value"
+                    @mouseover.native="hoverIndex = index"
+            >
+                <el-button
+                        size="small"
+                        style="width: 100px;"
+                        class="context-menu"
+                        plain
+                        :type="item.type"
+                        @click ="handleClickMenu(item.handleClick, item)">
+                    {{item.name }}
+                </el-button>
+                <i v-show="item.children && item.children.length > 0" class="el-icon-arrow-right"></i>
+                <el-popover
+                        :value="item.children && item.children.length > 0 && hoverIndex == index ? true : false"
+                        placement="right"
+                        trigger="manual"
+                        class="popover-intree"
+                        id="contextMenu"
+                        :style="`position: absolute;`">
+                    <el-row type="flex" :gutter="8" style="flex-wrap:wrap">
+                        <el-col style="margin-bottom:4px; position: relative;"
+                                v-for="idx in item.children"
+                                :key="idx.value">
+                            <el-button
+                                    size="small"
+                                    style="width: 100px;"
+                                    class="context-menu"
+                                    plain
+                                    :type="idx.type"
+                                    @click="handleClickMenu(idx.handleClick, idx)">
+                                {{item.name }}
+                            </el-button>
+                        </el-col>
+                    </el-row>
+                </el-popover>
+            </el-col>
+        </el-row>
+    </el-popover>
+</section>

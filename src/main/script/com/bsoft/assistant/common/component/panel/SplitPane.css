@@ -1,0 +1,70 @@
+.split-pane-wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.split-pane-wrapper .pane {
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.pane-left {
+    background: transparent;
+    padding: 10px 10px 0 10px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.pane-right {
+    box-sizing: border-box;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    padding: 10px 10px 0 10px;
+    z-index: 0;
+}
+
+.pane-trigger-con {
+    height: 100%;
+    background: rgb(240, 240, 240);
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    user-select: none;
+    cursor: col-resize;
+}
+
+.pane-trigger-con .pane-trigger-con__button {
+    border: 1px solid lightgrey;
+    width: calc(100% - 2px);
+    height: 20px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+.pane-trigger-con .pane-trigger-con__button div {
+    margin: 1px 0;
+    width: 100%;
+    height: 1px;
+    background-color: lightgrey;
+}
+
+/*.label-left-content {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    overflow-y: auto;*/
+/*    overflow-x: hidden;*/
+/*}*/
+
+/*.label-right-content {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: #fff;*/
+/*    overflow-y: auto;*/
+/*    overflow-x: hidden;*/
+/*}*/

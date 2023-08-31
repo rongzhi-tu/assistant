@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns:s="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bsoft.com.cn/schema/ssdev"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.bsoft.com.cn/schema/ssdev
+            http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+
+    <reference id="bbp.metaDataLoader" interface="ctd.metadata.loader.MetadataLoader"/>
+    <reference id="bbp.metaDataUpdater" interface="ctd.controller.updater.ConfigurableItemUpdater"/>
+    <s:bean id="metadataController" class="ctd.metadata.controller.MetadataController">
+        <s:property name="loader" ref="bbp.metaDataLoader"/>
+        <s:property name="updater" ref="bbp.metaDataUpdater"/>
+    </s:bean>
+    <s:bean id="metadataWatcher" class="ctd.metadata.watcher.MetadataWatcher">
+        <s:property name="controller" ref="metadataController"/>
+    </s:bean>
+    <s:bean id="metadataService" class="ctd.metadata.support.MetadataServiceImp"/>
+    <service ref="metadataService"/>
+</s:beans>

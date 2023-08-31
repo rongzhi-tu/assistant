@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- 消息生产者对象，该对象初始化时调用 init 方法，对象销毁前执行 destroy 方法， Name Server 地址和生产者。-->
+    <bean id="logProducer" class="com.bsoft.assistant.syncThread.LogProducer" destroy-method="destroy">
+        <constructor-arg name="nameServerAddr" value="${rocketmq.namesrv}"/>
+        <constructor-arg name="producerGroupName" value="log_producer_group"/>
+        <constructor-arg name="retryTimesWhenSendFailed" value="3"/>
+    </bean>
+
+    <bean id="logConsumer" class="com.bsoft.assistant.syncThread.LogConsumer" destroy-method="destroy">
+        <constructor-arg name="nameServerAddr" value="${rocketmq.namesrv}"/>
+        <constructor-arg name="consumerGroupName" value="log_consumer_group"/>
+    </bean>
+</beans>

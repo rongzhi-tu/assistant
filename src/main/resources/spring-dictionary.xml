@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns:s="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bsoft.com.cn/schema/ssdev"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.bsoft.com.cn/schema/ssdev
+            http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
+    <!--dictionary-->
+    <reference id="bbp.dictionaryDBLoader" interface="ctd.controller.ConfigurableLoader"/>
+    <s:bean id="dictionaryController" class="ctd.dictionary.controller.DictionaryController">
+        <s:property name="loaderList">
+            <s:list>
+                <s:ref bean="bbp.dictionaryDBLoader"/>
+                <s:ref bean="dictionaryXMLLoader"/>
+                <s:ref bean="dictionaryRpcLoader"/>
+            </s:list>
+        </s:property>
+        <s:property name="updater" ref="bbp.dictionaryUpdater"/>
+    </s:bean>
+    <s:bean id="dictionaryRpcLoader" class="ctd.dictionary.support.RpcDictionaryLoader">
+        <s:property name="centerLoader" ref="bbp.dictionaryDBLoader"></s:property>
+    </s:bean>
+
+    <s:bean id="dictionaryXMLLoader" class="ctd.dictionary.loader.XMLDictionaryLocalLoader"/>
+    <reference id="bbp.dictionaryUpdater" interface="ctd.controller.updater.ConfigurableUpdater"/>
+    <s:bean id="dictionaryWatcher" class="ctd.dictionary.watcher.DictionaryWatcher" lazy-init="false">
+        <s:property name="controller" ref="dictionaryController"/>
+    </s:bean>
+</s:beans>
