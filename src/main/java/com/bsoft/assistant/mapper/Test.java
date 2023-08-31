@@ -13,6 +13,6 @@ public class Test {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         DatasourceMapper datasourceMapper = applicationContext.getBean("datasourceMapper", DatasourceMapper.class);
 //        datasourceFuMapper.removeById("111","tuz");
-        System.out.println(JSON.toJSONString(datasourceMapper.findById("111")));
+        System.out.println(JSON.toJSONString(datasourceMapper.findById("DS2023053114241500926100001")));
     }
 }

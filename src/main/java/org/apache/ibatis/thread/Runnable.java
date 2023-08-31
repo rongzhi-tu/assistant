@@ -28,7 +28,7 @@ public class Runnable implements java.lang.Runnable {
 	private Long beforeTime = 0L; // 上一次刷新时间
 	private static boolean refresh = false; // 是否执行刷新
 
-	private static String mappingPath = "mappings"; // xml文件夹匹配字符串，需要根据需要修改
+	private static String mappingPath = "com/bsoft/assistant/mapper"; // xml文件夹匹配字符串，需要根据需要修改
 	private static int delaySeconds = 10;// 延迟刷新秒数
 	private static int sleepSeconds = 1;// 休眠时间
 	
