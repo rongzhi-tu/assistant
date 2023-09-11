@@ -1,0 +1,53 @@
+.transfer-footer {
+    margin-left: 20px;
+    padding: 6px 5px;
+}
+
+.page-form{
+    width: 100%;
+    height: 100%;
+}
+.page-form input{
+    width: 220px;
+    height: 40px;
+}
+
+.page-form .el-form{
+    width: 100%;
+    height: 87%;
+    /*display: flex;*/
+}
+
+.page-form-row{
+    height: 85px;
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+
+}
+
+.page-form .el-form label{
+    width: 220px;
+    display: flex;
+}
+
+.page-form .el-form-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    flex:1;
+}
+/*.page-form-bottom{*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*width: 100%;*/
+    /*height: 13%;*/
+    /*background: #f7f7f7;*/
+/*}*/
+.page-form-bottom button{
+    width: 100px;
+    height: 40px;
+    margin-top: 30px;
+    margin-left: 305px;
+}
