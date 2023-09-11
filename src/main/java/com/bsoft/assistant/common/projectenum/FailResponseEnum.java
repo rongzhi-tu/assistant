@@ -25,6 +25,7 @@ public enum FailResponseEnum {
     COMMON_EMPTY_PARAMS(10000000, "参数为空"),
     ENUM_NAME_NOT_EXIST(10000001, "枚举数据不存在"),
     SYSTEM_ERROR(10000002, "系统后台未知错误！"),
+    SOCKET_USER_INVALID(10000003, "用户名或密码暂未授权！"),
     //endregion
     ;
 

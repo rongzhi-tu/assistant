@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd">
+    <!-- 配置WebSocket处理器 -->
+    <bean id="websocket" class="com.bsoft.assistant.common.websocket.FaceWebSocketHandler" />
+
+    <!-- 配置WebSocket拦截器 -->
+    <websocket:handlers>
+        <!-- 跟前端请求的url相关 -->
+        <websocket:mapping path="/socket/face" handler="websocket" />
+        <websocket:handshake-interceptors>
+            <bean class="com.bsoft.assistant.common.websocket.HandshakeInterceptor" />
+        </websocket:handshake-interceptors>
+        <!--<websocket:sockjs websocket-enabled="true" >-->
+        <!--</websocket:sockjs>-->
+    </websocket:handlers>
+</beans>

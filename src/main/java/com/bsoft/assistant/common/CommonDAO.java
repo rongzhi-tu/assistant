@@ -22,7 +22,7 @@ import java.util.*;
  * on 2021/11/30.
  * 项目共用的基础数据获取逻辑
  */
-@Repository
+//@Repository
 public class CommonDAO<Entity> implements ApplicationContextAware {
 
 

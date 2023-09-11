@@ -13,7 +13,7 @@
     <!-- 启用注解  -->
     <context:annotation-config />
     <!--&lt;!&ndash; 设置使用注解的类所在的包 &ndash;&gt;-->
-    <!--<context:component-scan base-package="com.bsassistantrror"></context:component-scan>-->
+    <context:component-scan base-package="com.bsoft.assistant"></context:component-scan>
 
     <import resource="classpath:/ctd/util/exp/spring-expr-base.xml"/>
     <context:property-placeholder location="classpath:assistant.properties"/>
@@ -24,7 +24,9 @@
     </bean>
 
     <import resource="spring-mybatis.xml"/>
-    <!--<import resource="spring-service.xml"/>-->
-    <!--<import resource="spring-mvc.xml"/>-->
+    <import resource="spring-service.xml"/>
+    <import resource="spring-mvc.xml"/>
     <!--<import resource="spring-ws.xml"/>-->
+    <!--<import resource="spring-websocket.xml"/>-->
+    <import resource="spring-assistant.xml" />
 </beans>

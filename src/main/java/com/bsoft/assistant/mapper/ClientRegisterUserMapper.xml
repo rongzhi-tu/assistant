@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsoft.assistant.mapper.ClientRegisterUserMapper">
+    <update id="updateClientRegisterUser" parameterType="map">
+        update HI_LOGMIRROR_DATASOURCE set
+        DB_NAME = #{dbName},
+        DB_HOST = #{dbHost},
+        DB_PORT = #{dbPort},
+        DB_USER = #{dbUser},
+        DB_PASSWORD = #{dbPassword},
+        DB_TABLESPACE = #{dbTablespace,jdbcType=VARCHAR},
+        DB_SERVICE_NAME = #{dbServiceName,jdbcType=VARCHAR},
+        DICTIONARY_PATH = #{dictionaryPath,jdbcType=VARCHAR},
+        DB_TYPE = #{dbType},
+        UPDATE_USER = #{updateUser},
+        UPDATE_TIME = sysdate
+        where id = #{id}
+    </update>
+
+    <insert id="insertClientRegisterUser" parameterType="map">
+        insert into SSO_ASSISTANT_CLIENT_USER
+        ("id",FG_ACTIVE,INSERT_TIME,INSERT_USER,SERVER_CODE,USER_CODE,USER_NAME,JGBM,JGMC)
+        values (#{id},1,sysdate,#{insertUser},#{serverCode},#{userCode},#{userName,jdbcType=VARCHAR},#{jgbm,jdbcType=VARCHAR},#{jgmc})
+    </insert>
+
+    <delete id="deleteClientRegisterUser" parameterType="String">
+        DELETE SSO_ASSISTANT_CLIENT_USER where 1 = 1
+        <if test='serverCode != null and serverCode !=""'>
+            AND SERVER_CODE = #{serverCode}
+        </if>
+    </delete>
+
+    <select id="selectClientRegisterUser" parameterType="String" resultMap="ClientUserEntity">
+        select * from SSO_ASSISTANT_CLIENT_USER where FG_ACTIVE = '1'
+        <if test='serverCode != null and serverCode !=""'>
+            AND SERVER_CODE = #{serverCode}
+        </if>
+    </select>
+
+    <resultMap type="com.bsoft.assistant.model.entity.ClientUserEntity" id="ClientUserEntity">
+        <result property="id" jdbcType="VARCHAR" column="id"/>
+        <result property="serverCode" jdbcType="VARCHAR" column="SERVER_CODE"/>
+        <result property="userCode" jdbcType="VARCHAR" column="USER_CODE"/>
+        <result property="userName" jdbcType="VARCHAR" column="USER_NAME"/>
+        <result property="jgbm" jdbcType="VARCHAR" column="JGBM"/>
+        <result property="jgmc" jdbcType="VARCHAR" column="JGMC"/>
+        <result property="fgActive" jdbcType="INTEGER" column="FG_ACTIVE"/>
+        <result property="insertTime" jdbcType="DATE" column="INSERT_TIME"/>
+        <result property="updateTime" jdbcType="DATE" column="UPDATE_TIME"/>
+        <result property="deleteTime" jdbcType="DATE" column="DELETE_TIME"/>
+        <result property="insertUser" jdbcType="VARCHAR" column="INSERT_USER"/>
+        <result property="updateUser" jdbcType="VARCHAR" column="UPDATE_USER"/>
+        <result property="deleteUser" jdbcType="VARCHAR" column="DELETE_USER"/>
+    </resultMap>
+</mapper>

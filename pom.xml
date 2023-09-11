@@ -171,6 +171,23 @@
             <artifactId>jsqlparser</artifactId>
             <version>2.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>4.3.29.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>4.3.29.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ssdev</groupId>
+            <artifactId>bbp-api</artifactId>
+            <version>${ssdev.framework.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>assistant</finalName>

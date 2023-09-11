@@ -1,0 +1,23 @@
+<div class="page-form">
+    <div style="text-align: center">
+            <el-transfer
+                    style="text-align: left; display: inline-block"
+                    v-model="value"
+                    filterable
+                    :left-default-checked="[2, 3]"
+                    :right-default-checked="[1]"
+                    :titles="['未选用户', '已选用户']"
+                    :button-texts="['到左边', '到右边']"
+                    :props="{ key: 'userCode',label: 'userName'}"
+                    :format="{ noChecked: '${total}',
+                               hasChecked: '${checked}/${total}'
+                             }"
+                    @change="handleChange"
+                    :data="data">
+            </el-transfer>
+     </div>
+    <div class="page-form-bottom">
+        <el-button size="small" type="primary"  @click="confirm">确认</el-button>
+        <el-button size="small" type="info" @click="close">取消</el-button>
+    </div>
+</div>

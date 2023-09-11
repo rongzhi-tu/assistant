@@ -1,0 +1,94 @@
+<div class="report-manage-div">
+    <el-row style="padding:0 20px;">
+        <el-col :span="24">
+            <el-form :inline="true">
+                <el-form-item label="名称:">
+                    <el-input size="small" placeholder="请输入服务名称搜索" prefix-icon="el-icon-search" v-model="form.serverName"
+                              @change="filterData"></el-input>
+                </el-form-item>
+             <!--   <el-form-item label="机构:">
+                    <el-select size="small" placeholder="机构" class="el-sel" v-model="form.idOrg" style="width:100%"
+                               @change="filterData" clearable>
+                        <el-option v-for="oitem in orgdic" :key="oitem.key" :label="oitem.text" :value="oitem.key"/>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="状态:">
+                    <el-select size="small" placeholder="状态" class="el-sel" v-model="form.status" style="width:100%"
+                               @change="filterData" clearable>
+                        <el-option v-for="sitem in statusdic" :key="sitem.key" :label="sitem.text" :value="sitem.key"/>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="类型:">
+                    <el-select size="small" placeholder="类型" class="el-sel" v-model="form.type" style="width:100%"
+                               @change="filterData" clearable>
+                        <el-option v-for="type in typedic" :key="type.key" :label="type.text" :value="type.key"/>
+                    </el-select>
+                </el-form-item>-->
+                <el-form-item>
+                    <el-button size="small" type="primary" icon="el-icon-search" @click="findBtnClick">查询</el-button>
+                    <el-button size="small" type="primary" icon="el-icon-plus" @click="createBtnClick">新建</el-button>
+                    <el-button size="small" type="primary" icon="el-icon-edit" @click="updateBtnClick" >修改</el-button>
+                    <el-button size="small" type="primary" icon="el-icon-edit" @click="editorBtnClick" >编辑服务用户</el-button>
+                    <el-button size="small" type="danger" icon="el-icon-delete" @click="deleteBtnClick" >删除</el-button>
+                </el-form-item>
+            </el-form>
+        </el-col>
+    </el-row>
+    <!--<el-row>-->
+        <!--<el-col :span="24">-->
+            <div class="report-manage-table">
+                <el-table
+                        ref="singleTable"
+                        :data="tableData"
+                        highlight-current-row
+                        height="100%"
+                        @current-change="handlerCurrentChange"
+                        :header-cell-style="{background:'#F0F3F6'}">
+                    <el-table-column
+                            type="index"
+                            label="序号"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            property="serverCode"
+                            label="服务编码"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            property="serverName"
+                            label="服务名称"
+                            width="300">
+                    </el-table-column>
+                    <el-table-column
+                            property="serverUrl"
+                            label="服务URL"
+                            width="400">
+                    </el-table-column>
+                    <el-table-column
+                            property="insertTime"
+                            label="创建时间"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            property="insertUser"
+                            label="创建人"
+                            width="200">
+                    </el-table-column>
+                </el-table>
+            </div>
+        <!--</el-col>-->
+    <!--</el-row>-->
+    <el-row>
+        <el-col :span="24">
+            <div class="paginationContent">
+                <el-pagination v-if="!tableConfig.withoutPage" class="pagination" background
+                               @size-change="handleSizeChange"
+                               @current-change="handleCurrentChange" :current-page="tableConfig.pageNo"
+                               :page-sizes="tableConfig.pageSizes" :page-size="tableConfig.pageSize"
+                               layout="total, prev, pager, next, jumper, sizes" :total="total" style="float:right;">
+                </el-pagination>
+            </div>
+        </el-col>
+    </el-row>
+
+</div>

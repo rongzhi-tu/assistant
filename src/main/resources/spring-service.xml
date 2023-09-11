@@ -6,14 +6,14 @@
             http://www.bsoft.com.cn/schema/ssdev
             http://www.bsoft.com.cn/schema/ssdev/ssdev.xsd">
 
-    <applicationDomain name="assistant" packagePrefix="com.bsoft" serverId="assistant" host="10.32.0.171" autoDeploy="true"
+    <applicationDomain name="assistant" packagePrefix="com.bsoft" serverId="assistant"
                        registryAddress="zookeeper://${zookeeper.server}" zkAuth="admin:admin" sessionTimeout="60000"/>
     <connector url="tcp://${rpc.server}?codec=hessian">
         <filter id="urt"/>
     </connector>
 
     <s:import resource="spring-publish-netty.xml"/>
-    <!--<s:import resource="spring-dictionary.xml"/>-->
+    <s:import resource="spring-dictionary.xml"/>
     <s:import resource="spring-account.xml"/>
     <s:import resource="spring-module.xml"/>
     <s:import resource="spring-parameter.xml"/>

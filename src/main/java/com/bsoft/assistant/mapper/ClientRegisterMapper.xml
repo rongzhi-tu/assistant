@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsoft.assistant.mapper.ClientRegisterMapper">
+    <update id="updateClientRegister" parameterType="map">
+        update SSO_ASSISTANT_CLIENT_REGISTER set
+        SERVER_CODE = #{serverCode},
+        SERVER_NAME = #{serverName},
+        CODE = #{code},
+        TIPS_TYPE = #{tipsType},
+        SERVER_URL = #{serverUrl},
+        SERVER_URL_BAK = #{serverUrlBak,jdbcType=VARCHAR},
+        SERVER_DISCREPTION = #{serverDiscreption,jdbcType=VARCHAR},
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+        UPDATE_TIME = sysdate
+        where "id" = #{id}
+    </update>
+
+    <update id="deleteClientRegister" parameterType="map">
+        update SSO_ASSISTANT_CLIENT_REGISTER set
+        FG_ACTIVE = 0,
+        DELETE_USER = #{deleteUser,jdbcType=VARCHAR},
+        DELETE_TIME = sysdate
+        where "id" = #{id}
+    </update>
+
+    <insert id="insertClientRegister" parameterType="map">
+        insert into SSO_ASSISTANT_CLIENT_REGISTER
+        ("id",FG_ACTIVE,INSERT_TIME,INSERT_USER,SERVER_CODE,SERVER_NAME,CODE,TIPS_TYPE,SERVER_URL,SERVER_URL_BAK,SERVER_DISCREPTION)
+        values (#{id},1,sysdate,#{insertUser},#{serverCode},#{serverName},#{code,jdbcType=VARCHAR},#{tipsType,jdbcType=VARCHAR},#{serverUrl},#{serverUrlBak},#{serverDiscreption})
+    </insert>
+
+    <select id="selectServerByCode" parameterType="map" resultMap="ClientRegisterEntity">
+        select * from SSO_ASSISTANT_CLIENT_REGISTER where FG_ACTIVE = '1'
+        <if test='serverName != null and serverName !=""'>
+            AND SERVER_NAME = #{serverName}
+        </if>
+        <if test='serverCode != null and serverCode !=""'>
+            OR SERVER_CODE = #{serverCode}
+        </if>
+    </select>
+
+
+    <select id="selectCountNumber" parameterType="String" resultType="java.lang.Integer">
+        select count(*) from SSO_ASSISTANT_CLIENT_REGISTER where FG_ACTIVE = '1'
+        <if test='serverCode != null and serverCode !=""'>
+            AND SERVER_CODE = #{serverCode}
+        </if>
+    </select>
+
+    <select id="selectServerByServerCode" parameterType="String" resultMap="SsoAssistantClientTegister">
+        select * from SSO_ASSISTANT_CLIENT_REGISTER where FG_ACTIVE = '1'
+        <if test='serverCode != null and serverCode !=""'>
+            AND SERVER_CODE = #{serverCode}
+        </if>
+    </select>
+
+    <select id="selectClientRegister" parameterType="String" resultMap="SsoAssistantClientTegister">
+        select * from SSO_ASSISTANT_CLIENT_REGISTER where FG_ACTIVE = '1'
+        <if test='serverName != null and serverName !=""'>
+            AND SERVER_NAME = #{serverName}
+        </if>
+    </select>
+    <resultMap type="com.bsoft.assistant.model.entity.ClientRegisterEntity" id="ClientRegisterEntity">
+        <result property="id" jdbcType="VARCHAR" column="id"/>
+        <result property="serverCode" jdbcType="VARCHAR" column="SERVER_CODE"/>
+        <result property="serverName" jdbcType="VARCHAR" column="SERVER_NAME"/>
+        <result property="code" jdbcType="VARCHAR" column="CODE"/>
+        <result property="tipsType" jdbcType="VARCHAR" column="TIPS_TYPE"/>
+        <result property="serverUrl" jdbcType="VARCHAR" column="SERVER_URL"/>
+        <result property="serverUrlBak" jdbcType="VARCHAR" column="SERVER_URL_BAK"/>
+        <result property="serverDiscreption" jdbcType="VARCHAR" column="SERVER_DISCREPTION"/>
+        <result property="fgActive" jdbcType="INTEGER" column="FG_ACTIVE"/>
+        <result property="insertTime" jdbcType="DATE" column="INSERT_TIME"/>
+        <result property="updateTime" jdbcType="DATE" column="UPDATE_TIME"/>
+        <result property="deleteTime" jdbcType="DATE" column="DELETE_TIME"/>
+        <result property="insertUser" jdbcType="VARCHAR" column="INSERT_USER"/>
+        <result property="updateUser" jdbcType="VARCHAR" column="UPDATE_USER"/>
+        <result property="deleteUser" jdbcType="VARCHAR" column="DELETE_USER"/>
+    </resultMap>
+</mapper>
