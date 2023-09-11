@@ -49,14 +49,14 @@
         </if>
     </select>
 
-    <select id="selectServerByServerCode" parameterType="String" resultMap="SsoAssistantClientTegister">
+    <select id="selectServerByServerCode" parameterType="String" resultMap="ClientRegisterEntity">
         select * from SSO_ASSISTANT_CLIENT_REGISTER where FG_ACTIVE = '1'
         <if test='serverCode != null and serverCode !=""'>
             AND SERVER_CODE = #{serverCode}
         </if>
     </select>
 
-    <select id="selectClientRegister" parameterType="String" resultMap="SsoAssistantClientTegister">
+    <select id="selectClientRegister" parameterType="String" resultMap="ClientRegisterEntity">
         select * from SSO_ASSISTANT_CLIENT_REGISTER where FG_ACTIVE = '1'
         <if test='serverName != null and serverName !=""'>
             AND SERVER_NAME = #{serverName}
