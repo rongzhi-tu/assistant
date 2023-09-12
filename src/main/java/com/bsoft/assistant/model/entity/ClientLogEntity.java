@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Schema
 @Entity
-@Table(name = "HI_LOGMIRROR_DATASOURCE")
+@Table(name = "SSO_ASSISTANT_CLIENT_LOG")
 @Data
 public class ClientLogEntity extends BaseModel implements Serializable {
     /**

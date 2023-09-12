@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Schema
 @Entity
-@Table(name = "HI_LOGMIRROR_DATASOURCE")
+@Table(name = "SSO_ASSISTANT_REQUEST_LOG")
 @Data
 public class RequestLogEntity extends BaseModel implements Serializable {
     /**
@@ -32,38 +32,36 @@ public class RequestLogEntity extends BaseModel implements Serializable {
     /**
      * 请求发送方的用户
      */
-    @Column(name = "request_user")
+    @Column(name = "REQUEST_USER")
     private String requestUser;
 
     /**
      * 请求发送时间
      */
-    @Column(name = "request_date")
+    @Column(name = "REQUEST_DATE")
     private Date requestDate;
 
     /**
      * 服务编码
      */
-    @Column(name = "service_code")
+    @Column(name = "SERVICE_CODE")
     private String serviceCode;
 
     /**
      * 由中心端回写 - 服务数据内容(原生回执)
      */
-    @Column(name = "service_resp")
+    @Column(name = "SERVICE_RESP")
     private String serviceResp;
-
 
     /**
      * 服务参数
      */
-    @Column(name = "service_reqt")
+    @Column(name = "SERVICE_REQT")
     private String serviceReqt;
-
 
     /**
      * 接收者
      */
-    @Column(name = "touser_code")
+    @Column(name = "TOUSER_CODE")
     private String touserCode;
 }

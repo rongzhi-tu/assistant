@@ -27,7 +27,7 @@
 
     <insert id="insertClientRegister" parameterType="map">
         insert into SSO_ASSISTANT_CLIENT_REGISTER
-        ("id",FG_ACTIVE,INSERT_TIME,INSERT_USER,SERVER_CODE,SERVER_NAME,CODE,TIPS_TYPE,SERVER_URL,SERVER_URL_BAK,SERVER_DISCREPTION)
+        (id,FG_ACTIVE,INSERT_TIME,INSERT_USER,SERVER_CODE,SERVER_NAME,CODE,TIPS_TYPE,SERVER_URL,SERVER_URL_BAK,SERVER_DISCREPTION)
         values (#{id},1,sysdate,#{insertUser},#{serverCode},#{serverName},#{code,jdbcType=VARCHAR},#{tipsType,jdbcType=VARCHAR},#{serverUrl},#{serverUrlBak},#{serverDiscreption})
     </insert>
 

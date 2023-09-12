@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Schema
 @Entity
-@Table(name = "HI_LOGMIRROR_DATASOURCE")
+@Table(name = "SSO_ASSISTANT_TOMESSAGE_LOG")
 @Data
 public class TomessageLogEntity extends BaseModel implements Serializable {
     /**
@@ -25,19 +25,19 @@ public class TomessageLogEntity extends BaseModel implements Serializable {
     /**
      * 接受者编码
      */
-    @Column(name = "touser_code")
+    @Column(name = "TOUSER_CODE")
     private String touserCode;
 
     /**
      * 接收的信息标题 (改造后的回执)
      */
-    @Column(name = "toservice_title")
+    @Column(name = "TOSERVICE_TITLE")
     private String toserviceTitle;
 
     /**
      * 接收的信息内容 (改造后的回执)
      */
-    @Column(name = "toservice_resp")
+    @Column(name = "TOSERVICE_RESP")
     private String toserviceResp;
 
     /**
@@ -49,13 +49,12 @@ public class TomessageLogEntity extends BaseModel implements Serializable {
     /**
      * 查看状态 - 0:未查看 1:已查看 初始0
      */
-    @Column(name = "state")
+    @Column(name = "STATE")
     private String state;
-
 
     /**
      * 读取消息时间
      */
-    @Column(name = "request_time")
+    @Column(name = "REQUEST_TIME")
     private Date request_time;
 }

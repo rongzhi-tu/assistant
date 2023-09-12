@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Schema
 @Entity
-@Table(name = "HI_LOGMIRROR_DATASOURCE")
+@Table(name = "SSO_ASSISTANT_CLIENT_VERSION")
 @Data
 public class ClientVersionEntity extends BaseModel implements Serializable {
     /**
@@ -26,18 +26,18 @@ public class ClientVersionEntity extends BaseModel implements Serializable {
     /**
      * 程序名称
      */
-    @Column(name = "client_name")
+    @Column(name = "CLIENT_NAME")
     private String clientName;
 
     /**
      * 发布时间
      */
-    @Column(name = "up_time")
+    @Column(name = "UP_TIME")
     private Date upTime;
 
     /**
      * 版本号
      */
-    @Column(name = "version")
+    @Column(name = "VERSION")
     private String version;
 }

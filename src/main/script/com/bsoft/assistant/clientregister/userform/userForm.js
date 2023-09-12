@@ -103,7 +103,7 @@ $class("com.bsoft.assistant.clientregister.userform.userForm",{
         me.data.server.insertName = token.userName
         //me.data.server.orgName = token.manageUnitName.split("-")[0]
         //me.data.server.orgId = token.orgId
-      }
+      }l
       if(me.conf.opt=='upd'){
         me.data.server.serverCode=me.conf.rowData.serverCode
         me.data.server.insertUser = me.conf.rowData.insertUser

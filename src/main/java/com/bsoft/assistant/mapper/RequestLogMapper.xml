@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsoft.assistant.mapper.RequestLogMapper">
+    <insert id="insert" parameterType="com.bsoft.assistant.model.entity.RequestLogEntity">
+        insert into SSO_ASSISTANT_REQUEST_LOG
+        (ID,REQUEST_CLIENT,REQUEST_USER,REQUEST_DATE,SERVICE_CODE,SERVICE_REQT,TOUSER_CODE)
+        values (SEQ_REQUEST_LOG.nextval,#{requestClient},#{requestUser},sysdate,#{serviceCode},#{serviceReqt},#{touserCode})
+    </insert>
+
+    <update id="updateRespById" parameterType="map">
+        update SSO_ASSISTANT_REQUEST_LOG set
+        SERVICE_RESP = #{serviceResp}
+        where id = #{id}
+    </update>
+    <resultMap type="com.bsoft.assistant.model.entity.RequestLogEntity" id="RequestLogEntity">
+        <result property="id" jdbcType="VARCHAR" column="ID"/>
+        <result property="requestClient" jdbcType="VARCHAR" column="REQUEST_CLIENT"/>
+        <result property="requestUser" jdbcType="VARCHAR" column="REQUEST_USER"/>
+        <result property="requestDate" jdbcType="DATE" column="REQUEST_DATE"/>
+        <result property="serviceCode" jdbcType="VARCHAR" column="SERVICE_CODE"/>
+        <result property="serviceReqt" jdbcType="VARCHAR" column="SERVICE_REQT"/>
+        <result property="touserCode" jdbcType="VARCHAR" column="TOUSER_CODE"/>
+        <result property="serviceResp" jdbcType="VARCHAR" column="SERVICE_RESP"/>
+    </resultMap>
+</mapper>

@@ -120,7 +120,7 @@ $class('com.bsoft.assistant.clientregister.registerManage', {
           title:"修改服务信息",
           //modal: false,          // 是否显示遮罩层, 默认modal:true;
           //renderTo: me.el,       // renderTo 表示在指定的节点区域内展示弹出窗体; 默认展示在document.body
-          width:800,
+          width:1000,
           height:500
         });
         let cls = 'com.bsoft.assistant.clientregister.pageForm.pageForm';
